@@ -1,9 +1,10 @@
 import './App.css'
+import WeatherDashboard from './components/WeatherDashboard'
 
 function App() {
 
   return (
-    <h1>Hello, world!</h1>
+    <WeatherDashboard />
   )
 }
 

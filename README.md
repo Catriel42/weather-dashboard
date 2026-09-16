@@ -1,5 +1,7 @@
 # Weather Dashboard
 
+Inicio el proyecto con el commit: 936444c40f744ddb130810ff0ec4c74147ff26cc creando la estructura del proyecto
+
 Voy a consumir la API <https://openweathermap.org/>
 Para eso analizando la respuesta del endpoint de temperatura actual:
 
@@ -71,3 +73,8 @@ src/
 ´´´
 
 Crearé cinco funciones que retornen TSX, por ahora solo etiquetas que retornen texto.
+Tambien voy a importarlas y declararlas en el TSX de App
+
+![alt text](image.png)
+
+Todos estos cambios pertenecen al commit: 
