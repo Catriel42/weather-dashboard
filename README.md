@@ -77,4 +77,61 @@ Tambien voy a importarlas y declararlas en el TSX de App
 
 ![alt text](image.png)
 
-Todos estos cambios pertenecen al commit: 
+Todos estos cambios pertenecen al commit: 49a8faefc73e8b7bcd80b93b2eb836413bb04656
+
+Me di cuenta que en la tarea piden una busqueda del usuario, usare el endpoint de busqueda por ciudad
+
+Endpoint y example
+<https://api.openweathermap.org/geo/1.0/direct?q=cochabamba&limit=10&appid=$API_KEY>
+
+```json
+{
+    "name": "Cochabamba",
+    "lat": -17.401245799999998,
+    "lon": -66.16756808852,
+    "country": "BO",
+    "state": "Cochabamba"
+  },
+  {
+    "name": "Cochabamba",
+    "local_names": {
+      "ay": "Quchapampa",
+      "de": "Cochabamba",
+      "fr": "Cochabamba",
+      "qu": "Quchapampa",
+      "pt": "Cochabamba",
+      "ru": "Кочабамба",
+      "en": "Cochabamba",
+      "it": "Cochabamba"
+    },
+    "lat": -17.3936114,
+    "lon": -66.1568983,
+    "country": "BO",
+    "state": "Cochabamba"
+  },
+  {
+    "name": "Cochabamba",
+    "lat": -9.4948049,
+    "lon": -77.8595159,
+    "country": "PE",
+    "state": "Ancash"
+  },
+  {
+    "name": "Cochabamba",
+    "lat": -12.2079507,
+    "lon": -74.54280320904041,
+    "country": "PE",
+    "state": "Huancavelica"
+  },
+  {
+    "name": "Cochabamba",
+    "lat": -6.474381,
+    "lon": -78.8851926,
+    "country": "PE",
+    "state": "Cajamarca"
+  }
+```
+
+Usare esto para que el usuario busque la ciudad y posteriormente renderizar los componentes, lo creo y lo agrego a mi structure
+
+Crearé un search bar y un result card
