@@ -1,7 +1,14 @@
 import { MapPin } from "lucide-react";
 import "./LocationCard.css";
 
-function LocationCard() {
+interface LocationCardProps {
+  name: string;
+  country: string;
+  lat: number;
+  lon: number;
+}
+
+function LocationCard({ name, country, lat, lon }: LocationCardProps) {
   return (
     <article className="location-card">
       <div className="location-header">
@@ -10,19 +17,19 @@ function LocationCard() {
       </div>
 
       <div className="location-content">
-        <h2>Cochabamba</h2>
-        <p>Bolivia</p>
+        <h2>{name}</h2>
+        <p>{country}</p>
       </div>
 
       <div className="coordinates">
         <div>
           <span>Latitude</span>
-          <strong>-17.4012°</strong>
+          <strong>{lat.toFixed(4)}°</strong>
         </div>
 
         <div>
           <span>Longitude</span>
-          <strong>-66.1676°</strong>
+          <strong>{lon.toFixed(4)}°</strong>
         </div>
       </div>
     </article>

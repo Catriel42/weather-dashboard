@@ -9,7 +9,25 @@ import {
 
 import "./WeatherDetails.css";
 
-function WeatherDetails() {
+interface WeatherDetailsProps {
+  humidity: number;
+  windSpeed: number;
+  pressure: number;
+  visibility: number;
+  clouds: number;
+  tempMin: number;
+  tempMax: number;
+}
+
+function WeatherDetails({
+  humidity,
+  windSpeed,
+  pressure,
+  visibility,
+  clouds,
+  tempMin,
+  tempMax
+}: WeatherDetailsProps) {
   return (
     <article className="weather-details">
       <h2>Weather Details</h2>
@@ -18,37 +36,37 @@ function WeatherDetails() {
         <div className="weather-detail">
           <Droplets size={20} />
           <span>Humidity</span>
-          <strong>94%</strong>
+          <strong>{humidity}%</strong>
         </div>
 
         <div className="weather-detail">
           <Wind size={20} />
           <span>Wind</span>
-          <strong>1.54 m/s</strong>
+          <strong>{(windSpeed * (3600/1000)).toFixed(0)} km/h</strong>
         </div>
 
         <div className="weather-detail">
           <Gauge size={20} />
           <span>Pressure</span>
-          <strong>1017 hPa</strong>
+          <strong>{pressure} hPa</strong>
         </div>
 
         <div className="weather-detail">
           <Eye size={20} />
           <span>Visibility</span>
-          <strong>10 km</strong>
+          <strong>{(visibility / 1000).toFixed(1)} km</strong>
         </div>
 
         <div className="weather-detail">
           <Cloud size={20} />
           <span>Clouds</span>
-          <strong>75%</strong>
+          <strong>{clouds}%</strong>
         </div>
 
         <div className="weather-detail">
           <Thermometer size={20} />
           <span>Min / Max</span>
-          <strong>22° / 26°</strong>
+          <strong>{Math.round(tempMin)}°C / {Math.round(tempMax)}°C</strong>
         </div>
       </div>
     </article>

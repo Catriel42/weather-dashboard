@@ -1,7 +1,13 @@
 import { CloudRain, Thermometer } from "lucide-react";
 import "./CurrentWeatherCard.css";
 
-function CurrentWeatherCard() {
+interface CurrentWeatherCardProps {
+  temp: number;
+  condition: string;
+  feelsLike: number;
+}
+
+function CurrentWeatherCard({ temp, condition, feelsLike }: CurrentWeatherCardProps) {
   return (
     <article className="current-weather-card">
       <div className="current-weather-header">
@@ -10,13 +16,13 @@ function CurrentWeatherCard() {
       </div>
 
       <div className="current-weather-main">
-        <strong>25.5°C</strong>
-        <span>Rain</span>
+        <strong>{Math.round(temp)}°C</strong>
+        <span>{condition}</span>
       </div>
 
       <div className="feels-like">
         <Thermometer size={18} />
-        <span>Feels like 25.7°C</span>
+        <span>Feels like {Math.round(feelsLike)}°C</span>
       </div>
     </article>
   );

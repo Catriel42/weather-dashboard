@@ -1,7 +1,26 @@
 import { Sunrise, Sunset } from "lucide-react";
 import "./SunTimesCard.css";
 
-function SunTimesCard() {
+interface SunTimesCardProps {
+  sunriseTime: number; // Unix timestamp
+  sunsetTime: number;
+  timezoneOffset: number;
+}
+
+function formatTime(unixTime: number, offset: number) {
+  const date = new Date((unixTime + offset) * 1000);
+  let hours = date.getUTCHours();
+  const minutes = date.getUTCMinutes();
+  const ampm = hours >= 12 ? 'PM' : 'AM';
+  
+  hours = hours % 12;
+  hours = hours ? hours : 12;
+  const strMinutes = minutes < 10 ? '0' + minutes : minutes;
+  
+  return `${hours}:${strMinutes} ${ampm}`;
+}
+
+function SunTimesCard({ sunriseTime, sunsetTime, timezoneOffset }: SunTimesCardProps) {
   return (
     <article className="sun-times-card">
       <h2>Sun Times</h2>
@@ -11,7 +30,7 @@ function SunTimesCard() {
 
         <div>
           <span>Sunrise</span>
-          <strong>06:12 AM</strong>
+          <strong>{formatTime(sunriseTime, timezoneOffset)}</strong>
         </div>
       </div>
 
@@ -20,7 +39,7 @@ function SunTimesCard() {
 
         <div>
           <span>Sunset</span>
-          <strong>06:32 PM</strong>
+          <strong>{formatTime(sunsetTime, timezoneOffset)}</strong>
         </div>
       </div>
     </article>
