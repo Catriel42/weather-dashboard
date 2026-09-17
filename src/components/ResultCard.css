@@ -1,0 +1,50 @@
+.search-container {
+  position: relative;
+  flex: 1;
+}
+
+.search-results-dropdown {
+  position: absolute;
+  top: calc(100% + 8px);
+  left: 0;
+  right: 0;
+  
+  display: flex;
+  flex-direction: column;
+  gap: 4px;
+  
+  background: var(--surface);
+  border: 1px solid var(--border);
+  border-radius: 8px;
+  padding: 8px;
+  box-shadow: 0 10px 15px -3px rgba(0, 0, 0, 0.1);
+  z-index: 10;
+}
+
+.result-card {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  
+  width: 100%;
+  padding: 12px;
+  background: transparent;
+  border: none;
+  border-radius: 6px;
+  color: var(--text);
+  cursor: pointer;
+  text-align: left;
+}
+
+.result-card:hover {
+  background: var(--bg);
+}
+
+.result-card strong {
+  font-weight: 500;
+}
+
+.result-card span {
+  font-size: 0.875rem;
+  color: var(--muted);
+}
