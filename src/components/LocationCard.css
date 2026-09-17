@@ -1,0 +1,52 @@
+.location-card {
+  padding: 1.5rem;
+  border: 1px solid var(--border);
+  border-radius: 0.75rem;
+  background: var(--surface);
+}
+
+.location-header {
+  display: flex;
+  align-items: center;
+  gap: 0.5rem;
+
+  color: var(--muted);
+  font-size: 0.875rem;
+}
+
+.location-content {
+  margin-top: 1.5rem;
+}
+
+.location-content h2 {
+  margin: 0;
+  font-size: 1.75rem;
+  font-weight: 600;
+}
+
+.location-content p {
+  margin: 0.375rem 0 0;
+  color: var(--muted);
+}
+
+.coordinates {
+  display: flex;
+  gap: 2rem;
+  margin-top: 1.5rem;
+}
+
+.coordinates div {
+  display: flex;
+  flex-direction: column;
+  gap: 0.25rem;
+}
+
+.coordinates span {
+  color: var(--muted);
+  font-size: 0.75rem;
+}
+
+.coordinates strong {
+  font-size: 0.875rem;
+  font-weight: 500;
+}

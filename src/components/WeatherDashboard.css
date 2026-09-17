@@ -1,0 +1,32 @@
+.weather-dashboard {
+  width: min(75rem, 90%);
+  margin: 0 auto;
+  padding: 2rem 0;
+}
+
+.dashboard-header {
+  display: flex;
+  gap: 1rem;
+  align-items: center;
+}
+
+.weather-grid {
+  display: grid;
+  grid-template-columns: 1fr;
+  gap: 1rem;
+  margin-top: 1.5rem;
+}
+
+@media (min-width: 48rem) {
+  .weather-grid {
+    grid-template-columns: 2fr 1fr;
+  }
+}
+
+.weather-grid > :nth-child(3) {
+  grid-column: 1 / -1;
+}
+
+.weather-grid > :nth-child(4) {
+  grid-column: 1 / -1;
+}

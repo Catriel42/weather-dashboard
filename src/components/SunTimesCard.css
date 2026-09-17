@@ -1,0 +1,38 @@
+.sun-times-card {
+  display: flex;
+  flex-direction: column;
+  gap: 1.25rem;
+
+  padding: 1.5rem;
+  border: 1px solid var(--border);
+  border-radius: 0.75rem;
+  background: var(--surface);
+}
+
+.sun-times-card h2 {
+  margin: 0;
+  font-size: 1.125rem;
+  font-weight: 600;
+}
+
+.sun-time {
+  display: flex;
+  align-items: center;
+  gap: 0.75rem;
+}
+
+.sun-time div {
+  display: flex;
+  flex-direction: column;
+  gap: 0.25rem;
+}
+
+.sun-time span {
+  color: var(--muted);
+  font-size: 0.75rem;
+}
+
+.sun-time strong {
+  font-size: 0.875rem;
+  font-weight: 500;
+}

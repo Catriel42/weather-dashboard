@@ -1,0 +1,46 @@
+.weather-details {
+  padding: 1.5rem;
+  border: 1px solid var(--border);
+  border-radius: 0.75rem;
+  background: var(--surface);
+}
+
+.weather-details h2 {
+  margin: 0 0 1.5rem;
+  font-size: 1.125rem;
+  font-weight: 600;
+}
+
+.details-grid {
+  display: grid;
+  grid-template-columns: repeat(3, 1fr);
+  gap: 1.5rem;
+}
+
+.weather-detail {
+  display: grid;
+  grid-template-columns: auto 1fr;
+  column-gap: 0.625rem;
+}
+
+.weather-detail svg {
+  grid-row: span 2;
+  color: var(--muted);
+}
+
+.weather-detail span {
+  color: var(--muted);
+  font-size: 0.75rem;
+}
+
+.weather-detail strong {
+  margin-top: 0.25rem;
+  font-size: 0.875rem;
+  font-weight: 500;
+}
+
+@media (max-width: 43.75rem) {
+  .details-grid {
+    grid-template-columns: 1fr 1fr;
+  }
+}
