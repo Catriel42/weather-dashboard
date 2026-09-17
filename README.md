@@ -75,8 +75,6 @@ src/
 Crearé cinco funciones que retornen TSX, por ahora solo etiquetas que retornen texto.
 Tambien voy a importarlas y declararlas en el TSX de App
 
-![alt text](image.png)
-
 Todos estos cambios pertenecen al commit: 49a8faefc73e8b7bcd80b93b2eb836413bb04656
 
 Me di cuenta que en la tarea piden una busqueda del usuario, usare el endpoint de busqueda por ciudad
@@ -135,3 +133,42 @@ Endpoint y example
 Usare esto para que el usuario busque la ciudad y posteriormente renderizar los componentes, lo creo y lo agrego a mi structure
 
 Crearé un search bar y un result card
+
+commiteando estos cambios en: 2e3b0f44c9a6a64f52cd0da4f2abdaae0bb6d30e
+
+Ahora si, voy a comenzar con el disenio del dashboard y sus componentes
+
+Vi que para algunos icons se puede usar lucide-react asi que instalo
+
+``` bash
+npm install lucide-react
+```
+
+Todos estos cambios visuales pertenecen a los commits: 501783b (estructura UI) y 618cc17 junto con 7f09f5c (mejoras de estilos y variables CSS).
+
+## Mejoras en el Diseño y CSS
+
+Para manejar el cambio entre modo claro y oscuro de manera eficiente, implementé el uso de Variables CSS en el `index.css`. Modifiqué todos los componentes para que consuman estas variables en lugar de colores hardcoded.
+
+Además, apliqué buenas prácticas de CSS:
+
+- Se añadió un reset global (`box-sizing: border-box`).
+- Use rem en lugar de px para relative size
+- Grid responsivo usando `@media queries` para dispositivos móviles.
+- Se le dio estilos dedicados al botón de cambio de tema.
+
+Estos cambios de arquitectura pertenecen al commit: fab7c56
+
+## Creación de Servicios
+
+Decidí separar la lógica de peticiones HTTP en una capa de servicios.
+Creé el archivo `weatherService.ts`, el cual se encarga exclusivamente de hacer los `fetch` a la API de OpenWeather, tanto para buscar ciudades como para el clima actual y manejar los posibles errores de forma basic.
+
+### Manejo del Estado
+
+Para conectar la barra de búsqueda con las tarjetas de clima, apliqué el concepto de "Lifting State Up". El estado global vivirá en el componente padre (`WeatherDashboard.tsx`):
+
+- `useState` para manejar el término de búsqueda, los resultados de ciudades y la data final del clima.
+- `useEffect` para reaccionar cuando el usuario selecciona una ciudad y disparar la petición a la API del clima.
+- Los componentes hijos, que son todas las cards ahora serán componentes presentacionales que solo recibirán la información a través de `props`.
+
