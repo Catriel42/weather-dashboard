@@ -2,17 +2,17 @@ import { useState, useEffect } from "react";
 import { searchCities, getCurrentWeather } from "../services/weatherService";
 import type { City, WeatherData } from "../types/weather";
 
-import CurrentWeatherCard from "./CurrentWeatherCard";
-import LocationCard from "./LocationCard";
-import SunTimesCard from "./SunTimesCard";
-import WeatherDetails from "./WeatherDetails";
-import SearchBar from "./SearchBar";
-import ThemeToggle from "./ThemeToggle";
-import ResultCard from "./ResultCard";
-import EmptyState from "./EmptyState";
+import { CurrentWeatherCard } from "./CurrentWeatherCard";
+import { LocationCard } from "./LocationCard";
+import { SunTimesCard } from "./SunTimesCard";
+import { WeatherDetails } from "./WeatherDetails";
+import { SearchBar } from "./SearchBar";
+import { ThemeToggle } from "./ThemeToggle";
+import { ResultCard } from "./ResultCard";
+import { EmptyState } from "./EmptyState";
 import "./WeatherDashboard.css";
 
-function WeatherDashboard() {
+export const WeatherDashboard = () => {
   const [searchResults, setSearchResults] = useState<City[]>([]);
   const [selectedLocation, setSelectedLocation] = useState<City | null>(null);
   const [weatherData, setWeatherData] = useState<WeatherData | null>(null);
@@ -97,5 +97,3 @@ function WeatherDashboard() {
     </main>
   );
 }
-
-export default WeatherDashboard;

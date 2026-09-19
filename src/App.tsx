@@ -1,5 +1,5 @@
 import "./App.css";
-import WeatherDashboard from "./components/WeatherDashboard";
+import { WeatherDashboard } from "./components/WeatherDashboard";
 
 function App() {
   return <WeatherDashboard />;

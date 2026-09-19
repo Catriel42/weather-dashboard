@@ -19,7 +19,7 @@ interface WeatherDetailsProps {
   tempMax: number;
 }
 
-function WeatherDetails({
+export const WeatherDetails = ({
   humidity,
   windSpeed,
   pressure,
@@ -27,7 +27,7 @@ function WeatherDetails({
   clouds,
   tempMin,
   tempMax
-}: WeatherDetailsProps) {
+}: WeatherDetailsProps) => {
   return (
     <article className="weather-details">
       <h2>Weather Details</h2>
@@ -72,5 +72,3 @@ function WeatherDetails({
     </article>
   );
 }
-
-export default WeatherDetails;

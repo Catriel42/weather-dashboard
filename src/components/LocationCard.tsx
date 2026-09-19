@@ -8,7 +8,7 @@ interface LocationCardProps {
   lon: number;
 }
 
-function LocationCard({ name, country, lat, lon }: LocationCardProps) {
+export const LocationCard = ({ name, country, lat, lon }: LocationCardProps) => {
   return (
     <article className="location-card">
       <div className="location-header">
@@ -35,5 +35,3 @@ function LocationCard({ name, country, lat, lon }: LocationCardProps) {
     </article>
   );
 }
-
-export default LocationCard;

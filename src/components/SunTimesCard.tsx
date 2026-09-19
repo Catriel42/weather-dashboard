@@ -20,7 +20,7 @@ function formatTime(unixTime: number, offset: number) {
   return `${hours}:${strMinutes} ${ampm}`;
 }
 
-function SunTimesCard({ sunriseTime, sunsetTime, timezoneOffset }: SunTimesCardProps) {
+export const SunTimesCard = ({ sunriseTime, sunsetTime, timezoneOffset }: SunTimesCardProps) => {
   return (
     <article className="sun-times-card">
       <h2>Sun Times</h2>
@@ -45,5 +45,3 @@ function SunTimesCard({ sunriseTime, sunsetTime, timezoneOffset }: SunTimesCardP
     </article>
   );
 }
-
-export default SunTimesCard;

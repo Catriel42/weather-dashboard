@@ -6,7 +6,7 @@ interface ResultCardProps {
   onSelect: (city: City) => void;
 }
 
-function ResultCard({ city, onSelect }: ResultCardProps) {
+export const ResultCard = ({ city, onSelect }: ResultCardProps) => {
   return (
     <button 
       type="button"
@@ -21,4 +21,3 @@ function ResultCard({ city, onSelect }: ResultCardProps) {
   );
 }
 
-export default ResultCard;

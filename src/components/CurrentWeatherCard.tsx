@@ -7,7 +7,8 @@ interface CurrentWeatherCardProps {
   feelsLike: number;
 }
 
-function CurrentWeatherCard({ temp, condition, feelsLike }: CurrentWeatherCardProps) {
+export const CurrentWeatherCard = ({ temp, condition, feelsLike }: CurrentWeatherCardProps) => 
+  {
   return (
     <article className="current-weather-card">
       <div className="current-weather-header">
@@ -27,5 +28,3 @@ function CurrentWeatherCard({ temp, condition, feelsLike }: CurrentWeatherCardPr
     </article>
   );
 }
-
-export default CurrentWeatherCard;

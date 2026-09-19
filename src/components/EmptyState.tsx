@@ -1,7 +1,7 @@
 import { Map } from "lucide-react";
 import "./EmptyState.css";
 
-function EmptyState() {
+export const EmptyState = () => {
   return (
     <div className="empty-state">
       <Map size={48} />
@@ -9,5 +9,3 @@ function EmptyState() {
     </div>
   );
 }
-
-export default EmptyState;
