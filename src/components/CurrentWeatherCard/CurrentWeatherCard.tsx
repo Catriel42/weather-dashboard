@@ -1,14 +1,17 @@
-import { CloudRain, Thermometer } from "lucide-react";
-import "./CurrentWeatherCard.css";
+import { CloudRain, Thermometer } from 'lucide-react'
+import './CurrentWeatherCard.css'
 
 interface CurrentWeatherCardProps {
-  temp: number;
-  condition: string;
-  feelsLike: number;
+  temp: number
+  condition: string
+  feelsLike: number
 }
 
-export const CurrentWeatherCard = ({ temp, condition, feelsLike }: CurrentWeatherCardProps) => 
-  {
+export const CurrentWeatherCard = ({
+  temp,
+  condition,
+  feelsLike,
+}: CurrentWeatherCardProps) => {
   return (
     <article className="current-weather-card">
       <div className="current-weather-header">
@@ -26,5 +29,5 @@ export const CurrentWeatherCard = ({ temp, condition, feelsLike }: CurrentWeathe
         <span>Feels like {Math.round(feelsLike)}°C</span>
       </div>
     </article>
-  );
+  )
 }

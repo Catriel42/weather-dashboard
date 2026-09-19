@@ -1,22 +1,15 @@
-import {
-  Droplets,
-  Wind,
-  Gauge,
-  Eye,
-  Cloud,
-  Thermometer,
-} from "lucide-react";
+import { Droplets, Wind, Gauge, Eye, Cloud, Thermometer } from 'lucide-react'
 
-import "./WeatherDetails.css";
+import './WeatherDetails.css'
 
 interface WeatherDetailsProps {
-  humidity: number;
-  windSpeed: number;
-  pressure: number;
-  visibility: number;
-  clouds: number;
-  tempMin: number;
-  tempMax: number;
+  humidity: number
+  windSpeed: number
+  pressure: number
+  visibility: number
+  clouds: number
+  tempMin: number
+  tempMax: number
 }
 
 export const WeatherDetails = ({
@@ -26,7 +19,7 @@ export const WeatherDetails = ({
   visibility,
   clouds,
   tempMin,
-  tempMax
+  tempMax,
 }: WeatherDetailsProps) => {
   return (
     <article className="weather-details">
@@ -42,7 +35,7 @@ export const WeatherDetails = ({
         <div className="weather-detail">
           <Wind size={20} />
           <span>Wind</span>
-          <strong>{(windSpeed * (3600/1000)).toFixed(0)} km/h</strong>
+          <strong>{(windSpeed * (3600 / 1000)).toFixed(0)} km/h</strong>
         </div>
 
         <div className="weather-detail">
@@ -66,9 +59,11 @@ export const WeatherDetails = ({
         <div className="weather-detail">
           <Thermometer size={20} />
           <span>Min / Max</span>
-          <strong>{Math.round(tempMin)}°C / {Math.round(tempMax)}°C</strong>
+          <strong>
+            {Math.round(tempMin)}°C / {Math.round(tempMax)}°C
+          </strong>
         </div>
       </div>
     </article>
-  );
+  )
 }

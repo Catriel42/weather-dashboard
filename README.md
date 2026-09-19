@@ -1,11 +1,11 @@
 # Weather Dashboard
 
-Inicio el proyecto con el commit: `936444c` creando la estructura del proyecto.
+Inicio el proyecto creando la estructura del proyecto.
 
 ## Análisis de la API
 
 Voy a consumir la API de [OpenWeatherMap](https://openweathermap.org/).
-Para ello, analicé la respuesta de dos endpoints principales.
+Para ello, analicé la respuesta de dos endpoints.
 
 **Clima actual por coordenadas:**
 `<https://api.openweathermap.org/data/2.5/weather?lat=44.34&lon=10.99&appid={API_key}>`
@@ -105,10 +105,8 @@ src/
 ```
 
 Creé funciones que retornen TSX. Las importé y declaré en el componente App.
-Estos cambios pertenecen al commit: `49a8fae`
 
 Para permitir la búsqueda del usuario, creé los componentes SearchBar y ResultCard.
-Estos cambios pertenecen al commit: `2e3b0f4`
 
 ## Diseño e Interfaz de Usuario
 
@@ -118,7 +116,7 @@ Instalé la librería lucide-react para la iconografía del proyecto.
 npm install lucide-react
 ```
 
-Para manejar el cambio entre modo claro y oscuro de manera eficiente, implementé el uso de Variables CSS en el archivo principal. Modifiqué todos los componentes para que consuman estas variables en lugar de colores estáticos.
+Para manejar el cambio entre modo claro y oscuro, implementé el uso de Variables CSS en el archivo principal. Modifiqué todos los componentes para que consuman estas variables en lugar de colores estáticos.
 
 Además, apliqué buenas prácticas de CSS:
 
@@ -128,21 +126,32 @@ Además, apliqué buenas prácticas de CSS:
 - Diseñé botones interactivos para la búsqueda y el cambio de tema.
 - Extraje el mensaje de inicio a un componente EmptyState.
 
-Estos cambios visuales pertenecen a los commits: `501783b`, `618cc17` y `7f09f5c`
-
 ## Arquitectura de Servicios
 
 Decidí separar la lógica de peticiones HTTP en una capa de servicios independiente.
-Creé el archivo `weatherService.ts`, el cual se encarga exclusivamente de hacer las peticiones a la API de OpenWeather y manejar los posibles errores de red.
-
-Estos cambios pertenecen al commit: `fab7c56`
+Creé el archivo `weatherService.ts`, el que se encarga exclusivamente de hacer las peticiones a la API de OpenWeather y manejar los posibles errores de red.
 
 ## Tipado y Manejo de Estado
 
-Para asegurar la solidez del código, creé interfaces de TypeScript precisas en `src/types/weather.ts` basándome en las respuestas JSON de la API. Esto reemplaza el uso de tipos dinámicos por un tipado estricto.
+Para asegurar la solidez del código, creé interfaces de TypeScript en `src/types/weather.ts` basándome en las respuestas JSON de la API.
 
 Para conectar la barra de búsqueda con las tarjetas de clima, apliqué el concepto de Lifting State Up. El estado global vive en el componente padre `WeatherDashboard.tsx`:
 
 - Uso de `useState` para manejar los resultados de las ciudades y la data final del clima.
 - Uso de `useEffect` para reaccionar cuando el usuario selecciona una ciudad y disparar automáticamente la petición a la API del clima.
 - Los componentes hijos ahora son componentes presentacionales que únicamente reciben la información a través de props.
+
+## Refactor a function expression
+
+Ahora, con todo terminado, me dispongo a mejorar el codigo.
+Primero, declaré todos los function component como funciones explicitas y luego exporto estas mediante el export default. Esta bien, pero quiero acoplarme al estandar de usar arrow functions y exportar mediante export unicamente, eso me hara exportar usando llaves en lugar de exportaciones explicitas, le llaman named exports, que me parece mejor.
+
+## Folders de cada componente y uso del barrel index
+
+Refactorice cada componente en su respectiva carpeta, agregando un index.tsx para usar barrel.
+
+## Paso adicional: Eslint y Prettier para el formateo del code
+
+Siempre me dio curiosidad como sucede esto y como trabajan con esto los equipos, configuré los archivos necesarios para que prettier y eslint trabajen junntos, y tambien configure algunos command utiles en el package.json
+
+Luego de eso corrí el linter y el format y me formatearon todo, quedo lindo.

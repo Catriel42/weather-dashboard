@@ -1,5 +1,5 @@
-import { Map } from "lucide-react";
-import "./EmptyState.css";
+import { Map } from 'lucide-react'
+import './EmptyState.css'
 
 export const EmptyState = () => {
   return (
@@ -7,5 +7,5 @@ export const EmptyState = () => {
       <Map size={48} />
       <p>Type some city name</p>
     </div>
-  );
+  )
 }

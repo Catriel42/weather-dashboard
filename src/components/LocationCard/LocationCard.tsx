@@ -1,14 +1,19 @@
-import { MapPin } from "lucide-react";
-import "./LocationCard.css";
+import { MapPin } from 'lucide-react'
+import './LocationCard.css'
 
 interface LocationCardProps {
-  name: string;
-  country: string;
-  lat: number;
-  lon: number;
+  name: string
+  country: string
+  lat: number
+  lon: number
 }
 
-export const LocationCard = ({ name, country, lat, lon }: LocationCardProps) => {
+export const LocationCard = ({
+  name,
+  country,
+  lat,
+  lon,
+}: LocationCardProps) => {
   return (
     <article className="location-card">
       <div className="location-header">
@@ -33,5 +38,5 @@ export const LocationCard = ({ name, country, lat, lon }: LocationCardProps) => 
         </div>
       </div>
     </article>
-  );
+  )
 }
