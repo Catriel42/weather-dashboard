@@ -156,10 +156,21 @@ Siempre me dio curiosidad como sucede esto y como trabajan con esto los equipos,
 
 Luego de eso corrí el linter y el format y me formatearon todo, quedo lindo.
 
-Puedes usar la page web porque la deploye en aws, usa
+## Infraestructura y Despliegue en AWS (CDK)
 
+Decidí construir mi propia infraestructura en la nube de AWS utilizando **Infraestructura como Código (IaC)** a través del AWS Cloud Development Kit (CDK).
+
+Creé un subproyecto independiente en la carpeta `infra/`.
+
+- **Amazon S3**: Utilicé un bucket de S3 totalmente privado para almacenar mi aplicación React compilada (`dist/`).
+- **Amazon CloudFront**: Configuré una red de distribución global (CDN) frente a S3 usando el moderno estándar de seguridad OAC (Origin Access Control). Esto garantiza que los usuarios descarguen los archivos desde servidores cercanos a ellos en milisegundos.
+- **Ruteo de React (SPA)**: Configuré CloudFront para que intercepte los errores 404/403 y devuelva el `index.html` con un código 200. Esto permite que React Router maneje las URLs sin romper la aplicación al recargar la página.
+- **Automatización de Despliegues**: Implementé `BucketDeployment`, un constructo que, al ejecutar `cdk deploy`, toma mi carpeta local `dist/`, la comprime, la sube automáticamente al bucket y limpia la memoria caché de CloudFront para que los usuarios reciban la última actualización al instante.
+
+Todo esto está definido mediante TypeScript en el archivo `infra-stack.ts`, lo que me permite replicar, versionar y destruir esta arquitectura exacta en cualquier cuenta de AWS.
+
+Puedes usar la web final desplegada en AWS aquí:
 <https://dnr3v5hngcmwc.cloudfront.net>
 
-Como no tenemos repositorios para la materia, estoy subiendo todo esto a mi github personal
-
+Como no tenemos repositorios para la materia, estoy subiendo todo esto a mi github personal:
 <https://github.com/Catriel42/weather-dashboard>
