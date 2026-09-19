@@ -1,4 +1,4 @@
-import type { City } from "../types/weather";
+import type { City } from "../../types/weather";
 import "./ResultCard.css";
 
 interface ResultCardProps {
