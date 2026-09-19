@@ -1,8 +1,6 @@
 import "./App.css";
 import { WeatherDashboard } from "./components/WeatherDashboard";
 
-function App() {
+export const App = () => {
   return <WeatherDashboard />;
-}
-
-export default App;
+};
