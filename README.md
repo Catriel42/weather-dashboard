@@ -155,3 +155,11 @@ Refactorice cada componente en su respectiva carpeta, agregando un index.tsx par
 Siempre me dio curiosidad como sucede esto y como trabajan con esto los equipos, configuré los archivos necesarios para que prettier y eslint trabajen junntos, y tambien configure algunos command utiles en el package.json
 
 Luego de eso corrí el linter y el format y me formatearon todo, quedo lindo.
+
+Puedes usar la page web porque la deploye en aws, usa
+
+<https://dnr3v5hngcmwc.cloudfront.net>
+
+Como no tenemos repositorios para la materia, estoy subiendo todo esto a mi github personal
+
+<https://github.com/Catriel42/weather-dashboard>
