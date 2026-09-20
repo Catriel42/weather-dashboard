@@ -1,12 +1,10 @@
-# Desarrollo Web — Laboratory 3: Weather Dashboard
+# Web Development — Laboratory 3: Weather Dashboard
 
 **Estudiante:** Catriel Pereira Torrez
 **Institución:** Jala University
 **Materia:** Web Development
 **Documento:** Laboratorio Semana 3
 **Fecha:** 20 de septiembre, 2026
-
----
 
 ## Análisis de la API
 
@@ -414,7 +412,7 @@ export * from './CurrentWeatherCard'
 
 Esto permite mantener imports limpios y centralizados en el resto de la aplicación:
 
-```tsx
+```typescript
 import { CurrentWeatherCard } from '../CurrentWeatherCard'
 import { LocationCard } from '../LocationCard'
 import { WeatherDetails } from '../WeatherDetails'
