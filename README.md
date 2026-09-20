@@ -1,176 +1,140 @@
 # Weather Dashboard
 
-Inicio el proyecto creando la estructura del proyecto.
+Interactive web application to check real-time weather conditions for any city worldwide, consuming the OpenWeatherMap API. Built with React 19, TypeScript, and Vite.
 
-## Análisis de la API
+- **Live Demo:** [https://dnr3v5hngcmwc.cloudfront.net](https://dnr3v5hngcmwc.cloudfront.net)
+- **Repository:** [https://github.com/Catriel42/weather-dashboard](https://github.com/Catriel42/weather-dashboard)
 
-Voy a consumir la API de [OpenWeatherMap](https://openweathermap.org/).
-Para ello, analicé la respuesta de dos endpoints.
+---
 
-**Clima actual por coordenadas:**
-`<https://api.openweathermap.org/data/2.5/weather?lat=44.34&lon=10.99&appid={API_key}>`
+## Features
 
-```json
-{
-  "coord": {
-    "lon": 10.99,
-    "lat": 44.34
-  },
-  "weather": [
-    {
-      "id": 501,
-      "main": "Rain",
-      "description": "moderate rain",
-      "icon": "10d"
-    }
-  ],
-  "base": "stations",
-  "main": {
-    "temp": 298.48,
-    "feels_like": 298.74,
-    "temp_min": 297.56,
-    "temp_max": 300.05,
-    "pressure": 1015,
-    "humidity": 64,
-    "sea_level": 1015,
-    "grnd_level": 933
-  },
-  "visibility": 10000,
-  "wind": {
-    "speed": 0.62,
-    "deg": 349,
-    "gust": 1.18
-  },
-  "rain": {
-    "1h": 3.16
-  },
-  "clouds": {
-    "all": 100
-  },
-  "dt": 1661870592,
-  "sys": {
-    "type": 2,
-    "id": 2075663,
-    "country": "IT",
-    "sunrise": 1661834187,
-    "sunset": 1661882248
-  },
-  "timezone": 7200,
-  "id": 3163858,
-  "name": "Zocca",
-  "cod": 200
-}
-```
+- Dynamic city search with autocomplete and geographic coordinates.
+- Detailed weather metrics: current temperature, feels-like temperature, humidity, wind speed, visibility, and atmospheric pressure.
+- Local sunrise and sunset times calculated using timezone offset.
+- Light and dark mode support using CSS custom properties (variables).
+- Responsive design tailored for mobile and desktop viewports.
+- End-to-end strict typing with TypeScript.
+- Automated cloud architecture using Infrastructure as Code (IaC) with AWS CDK.
 
-Al revisar los requisitos de la tarea, noté que se pide una búsqueda realizada por el usuario. Para esto usaré el endpoint de búsqueda por ciudad.
+---
 
-**Búsqueda de ciudad por nombre:**
-`<https://api.openweathermap.org/geo/1.0/direct?q=cochabamba&limit=10&appid=$API_KEY>`
+## Technologies
 
-```json
-[
-  {
-    "name": "Cochabamba",
-    "lat": -17.401245799999998,
-    "lon": -66.16756808852,
-    "country": "BO",
-    "state": "Cochabamba"
-  },
-  {
-    "name": "Cochabamba",
-    "local_names": {
-      "ay": "Quchapampa",
-      "en": "Cochabamba"
-    },
-    "lat": -17.3936114,
-    "lon": -66.1568983,
-    "country": "BO",
-    "state": "Cochabamba"
-  }
-]
-```
+- **Frontend:** React 19, TypeScript, Vite, Lucide React
+- **Styling:** CSS Modules / Vanilla CSS with custom properties
+- **Code Quality:** ESLint, Prettier
+- **Infrastructure:** AWS CDK (TypeScript), Amazon S3, Amazon CloudFront
+- **Documentation:** [md-pdf](https://github.com/DaNnielRody/md-pdf) by [DaNnielRody](https://github.com/DaNnielRody)
 
-## Estructura de Componentes
+---
 
-Podría crear varios componentes viendo esta respuesta de la API, pero primero comencé con un bloque base.
+## Prerequisites
 
-```text
-src/
-├── components/
-│   ├── WeatherDashboard.tsx
-│   ├── LocationCard.tsx
-│   ├── CurrentWeatherCard.tsx
-│   ├── WeatherDetails.tsx
-│   └── SunTimesCard.tsx
-```
+- [Node.js](https://nodejs.org/) (version 18 or higher)
+- [npm](https://www.npmjs.com/)
+- [AWS CLI](https://aws.amazon.com/cli/) installed and configured with valid credentials (only required for deploying infrastructure).
 
-Creé funciones que retornen TSX. Las importé y declaré en el componente App.
+---
 
-Para permitir la búsqueda del usuario, creé los componentes SearchBar y ResultCard.
+## Getting Started
 
-## Diseño e Interfaz de Usuario
+1. Clone the repository or navigate to the project directory:
 
-Instalé la librería lucide-react para la iconografía del proyecto.
+   ```bash
+   cd weather-dashboard
+   ```
+
+2. Install dependencies:
+
+   ```bash
+   npm install
+   ```
+
+3. Start the development server:
+
+   ```bash
+   npm run dev
+   ```
+
+4. Open the local address displayed in the terminal in your browser (defaults to `http://localhost:5173`).
+
+---
+
+## Available Scripts
+
+In the project root, you can run:
+
+| Command | Description |
+| --- | --- |
+| `npm run dev` | Starts the local Vite development server. |
+| `npm run build` | Type-checks with TypeScript and generates static assets in `dist/`. |
+| `npm run preview` | Locally previews the generated production build. |
+| `npm run lint` | Analyzes code with ESLint to detect syntax and rule errors. |
+| `npm run lint:fix` | Automatically fixes fixable ESLint errors. |
+| `npm run format` | Formats all source files using Prettier. |
+| `npm run format:check` | Checks if files conform to Prettier rules without modifying them. |
+
+---
+
+## AWS Deployment with CDK
+
+The project infrastructure is defined as code in the `infra/` directory. The deployment provisions:
+
+- A private **Amazon S3** bucket to host the compiled frontend assets.
+- An **Amazon CloudFront** distribution with enforced HTTPS and 404/403 error redirection to `index.html` (supporting Single Page Application routing).
+- A `BucketDeployment` construct that automatically syncs the `dist/` directory to S3 and invalidates the CloudFront cache.
+
+### Deployment Steps
+
+1. **Build for production:**
+
+   From the project root, compile the application:
+
+   ```bash
+   npm run build
+   ```
+
+   This generates the `dist/` directory required by the CDK stack.
+
+2. **Navigate to the infrastructure directory:**
+
+   ```bash
+   cd infra
+   ```
+
+3. **Install CDK dependencies:**
+
+   ```bash
+   npm install
+   ```
+
+4. **Synthesize and deploy the stack:**
+
+   *(If this is your first time using CDK in your AWS account/region, run `npx cdk bootstrap` first).*
+
+   ```bash
+   npx cdk deploy
+   ```
+
+5. Once completed, the terminal will display the CloudFront URL output (`DomainURL`) where the application is publicly accessible.
+
+---
+
+## Documentation
+
+The project's technical documentation and lab reports located in the `docs/` folder are compiled into professional PDF documents using [**md-pdf**](https://github.com/DaNnielRody/md-pdf), an open-source tool developed by [**DaNnielRody**](https://github.com/DaNnielRody).
+
+`md-pdf` turns Markdown source files into publication-quality PDFs with client-facing finishes:
+
+- Professional cover page with institutional branding (`Jala University`) and metadata grid.
+- Dynamic table of contents with accurate real page-number resolution.
+- Running headers, footers, and clean page breaks per section.
+- Integrated styling and vector diagram rendering matching the rest of the document.
+
+To generate the documentation PDF locally:
 
 ```bash
-npm install lucide-react
+cd docs
+mdpdf laboratory3-catrielPereiraTorrez.md
 ```
-
-Para manejar el cambio entre modo claro y oscuro, implementé el uso de Variables CSS en el archivo principal. Modifiqué todos los componentes para que consuman estas variables en lugar de colores estáticos.
-
-Además, apliqué buenas prácticas de CSS:
-
-- Añadí un reset global para el modelo de caja.
-- Usé unidades relativas rem en lugar de px absolutos.
-- Implementé un Grid responsivo usando media queries para dispositivos móviles.
-- Diseñé botones interactivos para la búsqueda y el cambio de tema.
-- Extraje el mensaje de inicio a un componente EmptyState.
-
-## Arquitectura de Servicios
-
-Decidí separar la lógica de peticiones HTTP en una capa de servicios independiente.
-Creé el archivo `weatherService.ts`, el que se encarga exclusivamente de hacer las peticiones a la API de OpenWeather y manejar los posibles errores de red.
-
-## Tipado y Manejo de Estado
-
-Para asegurar la solidez del código, creé interfaces de TypeScript en `src/types/weather.ts` basándome en las respuestas JSON de la API.
-
-Para conectar la barra de búsqueda con las tarjetas de clima, apliqué el concepto de Lifting State Up. El estado global vive en el componente padre `WeatherDashboard.tsx`:
-
-- Uso de `useState` para manejar los resultados de las ciudades y la data final del clima.
-- Uso de `useEffect` para reaccionar cuando el usuario selecciona una ciudad y disparar automáticamente la petición a la API del clima.
-- Los componentes hijos ahora son componentes presentacionales que únicamente reciben la información a través de props.
-
-## Refactor a function expression
-
-Ahora, con todo terminado, me dispongo a mejorar el codigo.
-Primero, declaré todos los function component como funciones explicitas y luego exporto estas mediante el export default. Esta bien, pero quiero acoplarme al estandar de usar arrow functions y exportar mediante export unicamente, eso me hara exportar usando llaves en lugar de exportaciones explicitas, le llaman named exports, que me parece mejor.
-
-## Folders de cada componente y uso del barrel index
-
-Refactorice cada componente en su respectiva carpeta, agregando un index.tsx para usar barrel.
-
-## Paso adicional: Eslint y Prettier para el formateo del code
-
-Siempre me dio curiosidad como sucede esto y como trabajan con esto los equipos, configuré los archivos necesarios para que prettier y eslint trabajen junntos, y tambien configure algunos command utiles en el package.json
-
-Luego de eso corrí el linter y el format y me formatearon todo, quedo lindo.
-
-## Infraestructura y Despliegue en AWS (CDK)
-
-Decidí construir mi propia infraestructura en la nube de AWS utilizando **Infraestructura como Código (IaC)** a través del AWS Cloud Development Kit (CDK).
-
-Creé un subproyecto independiente en la carpeta `infra/`.
-
-- **Amazon S3**: Utilicé un bucket de S3 totalmente privado para almacenar mi aplicación React compilada (`dist/`).
-- **Amazon CloudFront**: Configuré una red de distribución global (CDN) frente a S3 usando el moderno estándar de seguridad OAC (Origin Access Control). Esto garantiza que los usuarios descarguen los archivos desde servidores cercanos a ellos en milisegundos.
-- **Ruteo de React (SPA)**: Configuré CloudFront para que intercepte los errores 404/403 y devuelva el `index.html` con un código 200. Esto permite que React Router maneje las URLs sin romper la aplicación al recargar la página.
-- **Automatización de Despliegues**: Implementé `BucketDeployment`, un constructo que, al ejecutar `cdk deploy`, toma mi carpeta local `dist/`, la comprime, la sube automáticamente al bucket y limpia la memoria caché de CloudFront para que los usuarios reciban la última actualización al instante.
-
-Todo esto está definido mediante TypeScript en el archivo `infra-stack.ts`, lo que me permite replicar, versionar y destruir esta arquitectura exacta en cualquier cuenta de AWS.
-
-Puedes usar la web final desplegada en AWS aquí:
-<https://dnr3v5hngcmwc.cloudfront.net>
-
-Como no tenemos repositorios para la materia, estoy subiendo todo esto a mi github personal:
-<https://github.com/Catriel42/weather-dashboard>
