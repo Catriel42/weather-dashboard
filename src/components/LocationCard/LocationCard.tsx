@@ -1,4 +1,5 @@
-import { MapPin } from 'lucide-react'
+import { Link } from 'react-router-dom'
+import { MapPin, ArrowRight } from 'lucide-react'
 import './LocationCard.css'
 
 interface LocationCardProps {
@@ -37,6 +38,11 @@ export const LocationCard = ({
           <strong>{lon.toFixed(4)}°</strong>
         </div>
       </div>
+
+      <Link to={`/forecast/${encodeURIComponent(name)}`} className="forecast-link">
+        <span>Ver pronóstico extendido</span>
+        <ArrowRight size={16} />
+      </Link>
     </article>
   )
 }
