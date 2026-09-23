@@ -1,0 +1,98 @@
+.forecast-details {
+  width: min(75rem, 90%);
+  margin: 0 auto;
+  padding: 2rem 0;
+}
+
+.forecast-back-btn {
+  display: inline-flex;
+  align-items: center;
+  gap: 0.5rem;
+  color: var(--muted);
+  text-decoration: none;
+  font-size: 0.875rem;
+  margin-bottom: 1.5rem;
+  padding: 0.4rem 0.75rem;
+  border-radius: 0.5rem;
+  border: 1px solid var(--border);
+  background: var(--surface);
+  transition: all 0.2s ease;
+}
+
+.forecast-back-btn:hover {
+  color: var(--text);
+  background: var(--bg);
+}
+
+.forecast-details-header {
+  margin-bottom: 2rem;
+}
+
+.forecast-title-group {
+  display: flex;
+  align-items: center;
+  gap: 1rem;
+}
+
+.forecast-header-icon {
+  color: var(--text);
+  flex-shrink: 0;
+}
+
+.forecast-city-title {
+  margin: 0;
+  font-size: 2rem;
+  font-weight: 700;
+  color: var(--text);
+  text-transform: capitalize;
+}
+
+.forecast-subtitle {
+  margin: 0.25rem 0 0 0;
+  color: var(--muted);
+  font-size: 0.875rem;
+}
+
+.forecast-cards-grid {
+  display: grid;
+  grid-template-columns: repeat(5, 1fr);
+  gap: 1rem;
+}
+
+@media (max-width: 64rem) {
+  .forecast-cards-grid {
+    grid-template-columns: repeat(auto-fit, minmax(10rem, 1fr));
+  }
+}
+
+.forecast-status-box {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  gap: 1rem;
+  padding: 3rem;
+  background: var(--surface);
+  border: 1px dashed var(--border);
+  border-radius: 0.75rem;
+  color: var(--muted);
+  text-align: center;
+}
+
+.forecast-status-box.error {
+  color: #ef4444;
+  border-color: #ef4444;
+}
+
+.forecast-spinner {
+  animation: spin 1s linear infinite;
+}
+
+@keyframes spin {
+  from {
+    transform: rotate(0deg);
+  }
+  to {
+    transform: rotate(360deg);
+  }
+}
