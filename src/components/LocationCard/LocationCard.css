@@ -62,7 +62,9 @@
   background: var(--bg);
   color: var(--text);
   text-decoration: none;
+  font: inherit;
   font-size: 0.825rem;
+  cursor: pointer;
   transition: all 0.2s ease;
 }
 

@@ -1,4 +1,4 @@
-import { Link } from 'react-router-dom'
+import { useNavigate } from 'react-router-dom'
 import { MapPin, ArrowRight } from 'lucide-react'
 import './LocationCard.css'
 
@@ -15,6 +15,14 @@ export const LocationCard = ({
   lat,
   lon,
 }: LocationCardProps) => {
+  const navigate = useNavigate()
+
+  const handleNavigateToForecast = () => {
+    navigate(`/forecast/${encodeURIComponent(name)}?lat=${lat}&lon=${lon}`, {
+      state: { lat, lon, name, country },
+    })
+  }
+
   return (
     <article className="location-card">
       <div className="location-header">
@@ -39,10 +47,14 @@ export const LocationCard = ({
         </div>
       </div>
 
-      <Link to={`/forecast/${encodeURIComponent(name)}`} className="forecast-link">
-        <span>Ver pronóstico extendido</span>
+      <button
+        type="button"
+        onClick={handleNavigateToForecast}
+        className="forecast-link"
+      >
+        <span>See extend pronostic</span>
         <ArrowRight size={16} />
-      </Link>
+      </button>
     </article>
   )
 }
