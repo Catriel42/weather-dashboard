@@ -1,0 +1,78 @@
+.forecast-card-item {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  text-align: center;
+  padding: 1.5rem 1rem;
+  background: var(--surface);
+  border: 1px solid var(--border);
+  border-radius: 0.75rem;
+  transition:
+    transform 0.2s ease,
+    border-color 0.2s ease,
+    background-color 0.2s ease;
+}
+
+.forecast-card-item:hover {
+  transform: translateY(-2px);
+  border-color: var(--text);
+}
+
+.forecast-day-name {
+  margin: 0;
+  font-size: 1.1rem;
+  font-weight: 600;
+  color: var(--text);
+}
+
+.forecast-day-condition {
+  font-size: 0.75rem;
+  color: var(--muted);
+  margin-top: 0.25rem;
+}
+
+.forecast-icon-wrapper {
+  margin: 0.5rem 0;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+
+.forecast-icon-wrapper img {
+  display: block;
+}
+
+.forecast-temp-box {
+  margin-bottom: 1rem;
+}
+
+.forecast-temp {
+  display: block;
+  font-size: 1.75rem;
+  line-height: 1;
+  color: var(--text);
+}
+
+.forecast-feels {
+  font-size: 0.75rem;
+  color: var(--muted);
+  display: block;
+  margin-top: 0.25rem;
+}
+
+.forecast-metrics {
+  display: flex;
+  gap: 0.75rem;
+  padding-top: 0.75rem;
+  border-top: 1px dashed var(--border);
+  width: 100%;
+  justify-content: center;
+}
+
+.forecast-metrics .metric {
+  display: flex;
+  align-items: center;
+  gap: 0.25rem;
+  font-size: 0.75rem;
+  color: var(--muted);
+}
