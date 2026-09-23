@@ -2,6 +2,11 @@
 
 Interactive web application to check real-time weather conditions for any city worldwide, consuming the OpenWeatherMap API. Built with React 19, TypeScript, and Vite.
 
+<img width="1785" height="893" alt="image" src="https://github.com/user-attachments/assets/73bed920-10f4-4110-9bce-1ee6bac08974" />
+
+<img width="1801" height="898" alt="image" src="https://github.com/user-attachments/assets/d3dffd1d-b589-4c90-ae84-6229a95c7bf2" />
+
+
 - **Live Demo:** [https://dnr3v5hngcmwc.cloudfront.net](https://dnr3v5hngcmwc.cloudfront.net)
 - **Repository:** [https://github.com/Catriel42/weather-dashboard](https://github.com/Catriel42/weather-dashboard)
 
