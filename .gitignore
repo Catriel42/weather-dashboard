@@ -25,3 +25,7 @@ dist-ssr
 
 # Generacion de pdf con md-pdf
 *.pdf
+
+# AWS CDK
+cdk.out/
+.cdk.staging/
