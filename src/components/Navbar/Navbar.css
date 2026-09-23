@@ -25,6 +25,7 @@
   font-weight: 600;
   font-size: 1.125rem;
   user-select: none;
+  text-decoration: none;
 }
 
 .navbar-brand-icon {
