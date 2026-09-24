@@ -168,6 +168,76 @@ Finalmente, recorro los reportes con un `.map()` dentro de una cuadrícula de 5 
 
 ## 2. Gestión de Estado (`useContext`)
 
+### Para solucionar Prop Drilling y Estado Global
+
+Antes de este cambio, el toggle de modo oscuro vivía únicamente dentro de `WeatherDashboard`, manejando el estado mediante props locales (`isDark` y `onToggle`).
+
+Al introducir navegación con múltiples páginas (`/`, `/about`, `/forecast/:city`), surge la necesidad de que el toggle estuviera disponible globalmente en (`Navbar`) y que cualquier componente o página futura pudiera consultar o alternar el tema sin tener que pasar estados y funciones de componente en componente, evitando el prop drilling.
+
+Para solucionar esto, implementé la API de Contexto de React (`createContext` y `useContext`).
+
+### Estructura modular en `src/context/`
+
+Separé la lógica en archivos específicos dentro de `src/context/`:
+
+``` bash
+src/context/
+├── ThemeContext.ts    # Definición del contexto, tipos y custom hook useTheme
+├── ThemeProvider.tsx  # Componente proveedor del estado
+└── index.ts           # Barrel file para exportar
+```
+
+#### 1. Definición del Contexto y Custom Hook
+
+En `src/context/ThemeContext.ts` definí el contrato de datos y creé un custom hook para consumir el contexto de forma segura:
+
+![ThemeContext Code](images/image-8.png)
+
+- **`ThemeContextType`**: Interfaz de TypeScript que define los valores que viajan por el contexto.
+- **`useTheme()`**: En lugar de obligar a cada componente a importar `ThemeContext` y usar `useContext(ThemeContext)` manualmente, creé este hook personalizado que además, incluye una validación: si un componente intenta usarlo fuera del `<ThemeProvider>`, arroja un error descriptivo en vez de fallar silenciosamente con `undefined`.
+
+#### 2. Componente Provider
+
+En `src/context/ThemeProvider.tsx` creé el componente que administra el estado real y la persistencia:
+
+![ThemeProvider Code](images/image-9.png)
+
+- **`ReactNode`**: Utilicé este tipo de React para tipar `children`. `ReactNode` representa cualquier contenido que React puede renderizar (elementos JSX, texto, números o fragmentos), permitiendo que `<ThemeProvider>` funcione como un contenedor envolvente genérico.
+
+- Al iniciar, el estado lee si el usuario ya tenía guardada su preferencia previa (`localStorage.getItem('theme')`).
+
+- Con `useEffect`, cada vez que `isDark` cambia, se agrega o quita la clase `.dark` en la raíz del documento (`document.documentElement`), activando las variables de colores en CSS y guardando el nuevo valor en `localStorage`.
+
+#### 3. Exportación
+
+En `src/context/index.ts` centralicé las exportaciones.
+
+Esto me permite importar tanto el proveedor como el hook desde cualquier parte de la aplicación haciendo `import { useTheme } from '../context'`.
+
+---
+
+### Refactor en la Aplicación
+
+#### 1. Envolviendo la raíz en `App.tsx`
+
+Envolví todo el enrutador dentro de `<ThemeProvider>`:
+
+![New App with ThemeProvider](images/image-10.png)
+
+Al colocarlo en la cima del árbol, todas las rutas hijas y layouts heredan el contexto automáticamente.
+
+#### 2. Refactorización de `ThemeToggle`
+
+Modifiqué el componente `ThemeToggle` para que ya no reciba props:
+
+![New ThemeToggle](images/image-11.png)
+
+Quedo muy limpio, me gusta.
+
+#### 3. Ubicación global en el `Navbar`
+
+Monté `<ThemeToggle />` directamente dentro de `Navbar.tsx` al lado de los enlaces de navegación, logrando que el botón esté accesible en todo momento sin importar en qué vista se encuentre el usuario y eliminé la instancia que estaba dentro de `WeatherDashboard.tsx`.
+
 ## 3. Hook Personalizado (`useFetch`)
 
 ## 4. Rendimiento (`lazy loading`)
