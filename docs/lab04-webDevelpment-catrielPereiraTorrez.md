@@ -34,13 +34,13 @@ Para eso voy a crear una estructura anidada de Routes en App, de esta manera:
 
 Y también creé el `AppLayout` que es:
 
-![App Layout](./images/images-5.png)
+![App Layout](./images/image-5.png)
 
 Estoy preveyendo la existencia de Forescast por city, feature que aún no hice.
 
 Por ahora redirige a una mi componente estático `EmptyState`
 
-## Refactorización: Migración a Data Router (`createBrowserRouter`)
+## Refactorización: Migración a Data Router
 
 Para seguir las mejores prácticas y desacoplar responsabilidades, saqué la configuración de rutas de `App.tsx` a un módulo dedicado en `src/router/index.tsx` usando `createBrowserRouter`.
 
@@ -52,7 +52,7 @@ Para seguir las mejores prácticas y desacoplar responsabilidades, saqué la con
 
 En `src/router/index.tsx`:
 
-![New router declaration](./images/images-6.png)
+![New router declaration](./images/image-6.png)
 
 Con esto, `App.tsx` solo consume el router mediante `<RouterProvider />`:
 
@@ -238,6 +238,59 @@ Quedo muy limpio, me gusta.
 
 Monté `<ThemeToggle />` directamente dentro de `Navbar.tsx` al lado de los enlaces de navegación, logrando que el botón esté accesible en todo momento sin importar en qué vista se encuentre el usuario y eliminé la instancia que estaba dentro de `WeatherDashboard.tsx`.
 
-## 3. Hook Personalizado (`useFetch`)
+## 3. Hook Personalizado
 
-## 4. Rendimiento (`lazy loading`)
+En la versión inicial de `WeatherDashboard.tsx`, la consulta del clima actual se realizaba mediante un `useState` y un `useEffect` que llamaba directamente a la función del servicio.
+
+No existía un indicador visual de carga por lo que la pantalla no daba retroalimentación mientras la API respondía, no existía una captura de errores visual en pantalla (`error`).
+
+Existía el riesgo de race Conditions si el usuario buscaba y seleccionaba varias ciudades rápidamente, una respuesta lenta de una búsqueda previa podía llegar después y sobreescribir los datos más recientes.
+
+Para resolver esto y hacer la lógica reutilizable en cualquier parte de la aplicación, creé el hook personalizado `useFetch`.
+
+---
+
+### Creación del Custom Hook
+
+Centralicé la lógica de fetching en `src/hooks/useFetch.ts`:
+
+![alt text](images/image-12.png)
+
+#### Aspectos clave del diseño
+
+1. El hook es genérico. Quien lo consume especifica qué estructura espera (por ejemplo, `<WeatherData>`), manteniendo el tipado estricto.
+
+2. Utilicé la API nativa de JavaScript `AbortController`. Al pasar `controller.signal` a `fetch()`, el navegador queda vinculado a la señal de cancelación.
+
+3. En la función de limpieza (`return () => controller.abort()`), si el usuario cambia de página o selecciona otra ciudad antes de que termine la petición actual, la conexión HTTP se cancela inmediatamente a nivel de red, evitando *memory leaks* y sobreescrituras desfasadas.
+
+En el bloque `catch`, filtro las excepciones de tipo `AbortError` para que las cancelaciones voluntarias no se interpreten como errores para el usuario.
+
+---
+
+### Integración en el Servicio y Dashboard
+
+#### 1. Constructor de URL
+
+Para no ensuciar los componentes con URLs ni llaves de API, exporté en `src/services/weatherService.ts` una función constructora:
+
+![alt text](images/image-13.png)
+
+#### 2. Consumo en `WeatherDashboard.tsx`
+
+Refactoricé `WeatherDashboard.tsx` para consumir directamente el hook:
+
+![alt text](images/image-14.png)
+
+![alt text](images/image-15.png)
+
+#### 3. Estados visuales de Carga y Error
+
+En el JSX del dashboard añadí retroalimentación visual según el estado que devuelve `useFetch`:
+
+- **Cargando (`isLoading`)**: Muestra un contenedor estilizado con el icono animado `Loader2` de Lucide.
+- **Error (`error`)**: Muestra un cuadro de advertencia con `AlertCircle` indicando el mensaje del error.
+- **Sin datos (`!weatherData`)**: Muestra el componente `EmptyState`.
+- **Éxito**: Despliega la cuadrícula con las tarjetas del clima (`CurrentWeatherCard`, `LocationCard`, `SunTimesCard`, `WeatherDetails`).
+
+## 4. Rendimiento con lazy loading
