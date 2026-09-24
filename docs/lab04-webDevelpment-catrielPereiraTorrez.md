@@ -1,10 +1,10 @@
-# Web Development — Laboratory 3: Weather Dashboard
+# Web Development — Laboratory 4: SPA Multi-Página con Estado Compartido
 
 **Estudiante:** Catriel Pereira Torrez
 **Institución:** Jala University
 **Materia:** Web Development
-**Documento:** Laboratorio Semana 3
-**Fecha:** 20 de septiembre, 2026
+**Documento:** Laboratorio Semana 4
+**Fecha:** 24 de septiembre, 2026
 
 ## 1. Enrutamiento (React Router)
 
