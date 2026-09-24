@@ -9,6 +9,14 @@ const API_KEY = '54763932f62e7948dce4e505f2d36571'
 const BASE_URL_GEO = 'https://api.openweathermap.org/geo/1.0'
 const BASE_URL_WEATHER = 'https://api.openweathermap.org/data/2.5'
 
+export const getWeatherUrl = (lat: number, lon: number): string => {
+  return `${BASE_URL_WEATHER}/weather?lat=${lat}&lon=${lon}&units=metric&appid=${API_KEY}`
+}
+
+export const getForecastUrl = (lat: number, lon: number): string => {
+  return `${BASE_URL_WEATHER}/forecast?lat=${lat}&lon=${lon}&units=metric&appid=${API_KEY}`
+}
+
 export const searchCities = async (query: string): Promise<City[]> => {
   try {
     const response = await fetch(
