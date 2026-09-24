@@ -15,9 +15,13 @@ Interactive web application to check real-time weather conditions for any city w
 ## Features
 
 - Dynamic city search with autocomplete and geographic coordinates.
-- Detailed weather metrics: current temperature, feels-like temperature, humidity, wind speed, visibility, and atmospheric pressure.
+- Detailed real-time weather metrics: current temperature, feels-like temperature, humidity, wind speed, visibility, and atmospheric pressure.
+- 5-day weather forecast with dedicated dynamic routes (`/forecast/:city`) and daily precipitation metrics.
+- Single Page Application (SPA) routing powered by React Router v7 (`createBrowserRouter`) with persistent layout and fallback handling (`404 Not Found`).
+- Global state management using React Context API (`ThemeContext`) and custom `useTheme()` hook for seamless dark/light mode toggling across all routes.
+- Custom declarative `useFetch` hook built with TypeScript generics, race condition prevention, and request cancellation via native `AbortController`.
+- Performance optimization with route-level code splitting and lazy loading (`React Router lazy`) on the About page.
 - Local sunrise and sunset times calculated using timezone offset.
-- Light and dark mode support using CSS custom properties (variables).
 - Responsive design tailored for mobile and desktop viewports.
 - End-to-end strict typing with TypeScript.
 - Automated cloud architecture using Infrastructure as Code (IaC) with AWS CDK.
@@ -26,7 +30,7 @@ Interactive web application to check real-time weather conditions for any city w
 
 ## Technologies
 
-- **Frontend:** React 19, TypeScript, Vite, Lucide React
+- **Frontend:** React 19, TypeScript, Vite, React Router v7, Lucide React
 - **Styling:** CSS Modules / Vanilla CSS with custom properties
 - **Code Quality:** ESLint, Prettier
 - **Infrastructure:** AWS CDK (TypeScript), Amazon S3, Amazon CloudFront
@@ -137,9 +141,9 @@ The project's technical documentation and lab reports located in the `docs/` fol
 - Running headers, footers, and clean page breaks per section.
 - Integrated styling and vector diagram rendering matching the rest of the document.
 
-To generate the documentation PDF locally:
+To generate any documentation PDF locally:
 
 ```bash
 cd docs
-mdpdf laboratory3-catrielPereiraTorrez.md
+mdpdf <document-name>.md
 ```
