@@ -56,7 +56,7 @@ En `src/router/index.tsx`:
 
 Con esto, `App.tsx` solo consume el router mediante `<RouterProvider />`:
 
-![New App](images/image-7.png)
+![New App](./images/image-7.png)
 
 Algo importante: Al usar `RouterProvider`, se quitó `<BrowserRouter />` de `main.tsx` porque el nuevo router ya gestiona el contexto internamente.
 
@@ -191,7 +191,7 @@ src/context/
 
 En `src/context/ThemeContext.ts` definí el contrato de datos y creé un custom hook para consumir el contexto de forma segura:
 
-![ThemeContext Code](images/image-8.png)
+![ThemeContext Code](./images/image-8.png)
 
 - **`ThemeContextType`**: Interfaz de TypeScript que define los valores que viajan por el contexto.
 - **`useTheme()`**: En lugar de obligar a cada componente a importar `ThemeContext` y usar `useContext(ThemeContext)` manualmente, creé este hook personalizado que además, incluye una validación: si un componente intenta usarlo fuera del `<ThemeProvider>`, arroja un error descriptivo en vez de fallar silenciosamente con `undefined`.
@@ -200,7 +200,7 @@ En `src/context/ThemeContext.ts` definí el contrato de datos y creé un custom 
 
 En `src/context/ThemeProvider.tsx` creé el componente que administra el estado real y la persistencia:
 
-![ThemeProvider Code](images/image-9.png)
+![ThemeProvider Code](./images/image-9.png)
 
 - **`ReactNode`**: Utilicé este tipo de React para tipar `children`. `ReactNode` representa cualquier contenido que React puede renderizar (elementos JSX, texto, números o fragmentos), permitiendo que `<ThemeProvider>` funcione como un contenedor envolvente genérico.
 
@@ -222,7 +222,7 @@ Esto me permite importar tanto el proveedor como el hook desde cualquier parte d
 
 Envolví todo el enrutador dentro de `<ThemeProvider>`:
 
-![New App with ThemeProvider](images/image-10.png)
+![New App with ThemeProvider](./images/image-10.png)
 
 Al colocarlo en la cima del árbol, todas las rutas hijas y layouts heredan el contexto automáticamente.
 
@@ -230,7 +230,7 @@ Al colocarlo en la cima del árbol, todas las rutas hijas y layouts heredan el c
 
 Modifiqué el componente `ThemeToggle` para que ya no reciba props:
 
-![New ThemeToggle](images/image-11.png)
+![New ThemeToggle](./images/image-11.png)
 
 Quedo muy limpio, me gusta.
 
@@ -254,7 +254,7 @@ Para resolver esto y hacer la lógica reutilizable en cualquier parte de la apli
 
 Centralicé la lógica de fetching en `src/hooks/useFetch.ts`:
 
-![alt text](images/image-12.png)
+![alt text](./images/image-12.png)
 
 #### Aspectos clave del diseño
 
@@ -280,9 +280,9 @@ Para no ensuciar los componentes con URLs ni llaves de API, exporté en `src/ser
 
 Refactoricé `WeatherDashboard.tsx` para consumir directamente el hook:
 
-![alt text](images/image-14.png)
+![alt text](./images/image-14.png)
 
-![alt text](images/image-15.png)
+![alt text](./images/image-15.png)
 
 #### 3. Estados visuales de Carga y Error
 
@@ -293,4 +293,52 @@ En el JSX del dashboard añadí retroalimentación visual según el estado que d
 - **Sin datos (`!weatherData`)**: Muestra el componente `EmptyState`.
 - **Éxito**: Despliega la cuadrícula con las tarjetas del clima (`CurrentWeatherCard`, `LocationCard`, `SunTimesCard`, `WeatherDetails`).
 
-## 4. Rendimiento con lazy loading
+## 4. Rendimiento con Lazy Loading
+
+### Problema del Bundle
+
+Por defecto, cuando importamos todos los componentes con `import` estáticos al inicio de nuestro router, Vite empaqueta todo el código de la aplicación en un solo archivo JavaScript gigante.
+
+Esto significa que cuando un usuario entra por primera vez a la página principal solo para consultar el clima de hoy, su navegador se ve forzado a descargar también el código de páginas que tal vez nunca visite.
+
+A medida que una aplicación crece esto degrada el tiempo de carga inicial
+
+Para solucionar esto, implementé Code Splitting mediante Lazy Loading.
+
+---
+
+### ¿Por qué la propiedad `lazy` de React Router en lugar de `React.lazy` con `<Suspense>`?
+
+Al haber migrado previamente nuestro enrutador a la arquitectura moderna de Data Router con `createBrowserRouter`, tenemos a nuestra disposición la propiedad nativa **`lazy`** en las definiciones de ruta.
+
+Decidí aprovechar esta característica en lugar del tradicional `React.lazy` + `<Suspense>` manual por las siguientes ventajas técnicas:
+
+1. **Cero Boilerplate:** No necesitamos importar `<Suspense>` ni crear manualmente contenedores de envoltura en cada vista; el router se encarga de la suspensión y el ciclo de vida de la transición de forma automática.
+2. **Soporte para Named Exports:** No fue necesario alterar `About.tsx` para forzar un `export default`. Podemos importar directamente la exportación nombrada `{ About }`.
+3. **Eliminación de Waterfalls:** Si en el futuro la ruta requiere precargar datos mediante un `loader`, React Router puede descargar el componente y los datos en paralelo en un solo viaje de red, evitando esperar a que el componente cargue para recién pedir los datos.
+4. **Mismo beneficio de empaquetado:** A nivel de compilador, Vite reconoce el `import()` dinámico de la misma forma que con `React.lazy` y genera un chunk independiente.
+
+---
+
+### Implementación en `src/router/index.tsx`
+
+Eliminé la importación estática de `About` y configuré la ruta de forma diferida mediante una función asíncrona que retorna `{ Component: About }`:
+
+![alt text](./images/image-17.png)
+
+---
+
+### Verificación y Generación de Chunks en Vite
+
+Al ejecutar el comando de construcción en producción:
+
+```bash
+npm run build
+```
+
+Vite genera los artefactos demostrando que la ruta `/about` fue aislada exitosamente en sus propios archivos de JS y CSS:
+
+![alt text](./images/image-16.png)
+
+- **`index-*.js`**: Redujo su tamaño ya que no contiene el código de `About`.
+- **`About-*.js` (4.67 kB)** y **`About-*.css` (1.87 kB)**: Ahora son un chunk independiente que el navegador descarga bajo demanda únicamente cuando el usuario navega a la URL `/about`.
