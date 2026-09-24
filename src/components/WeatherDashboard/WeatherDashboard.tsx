@@ -1,5 +1,7 @@
-import { useState, useEffect } from 'react'
-import { searchCities, getCurrentWeather } from '../../services/weatherService'
+import { useState } from 'react'
+import { Loader2, AlertCircle } from 'lucide-react'
+import { searchCities, getWeatherUrl } from '../../services/weatherService'
+import { useFetch } from '../../hooks'
 import type { City, WeatherData } from '../../types/weather'
 
 import { CurrentWeatherCard } from '../CurrentWeatherCard'
@@ -14,21 +16,13 @@ import './WeatherDashboard.css'
 export const WeatherDashboard = () => {
   const [searchResults, setSearchResults] = useState<City[]>([])
   const [selectedLocation, setSelectedLocation] = useState<City | null>(null)
-  const [weatherData, setWeatherData] = useState<WeatherData | null>(null)
 
-  useEffect(() => {
-    if (!selectedLocation) return
+  const weatherUrl = selectedLocation
+    ? getWeatherUrl(selectedLocation.lat, selectedLocation.lon)
+    : null
 
-    const fetchWeather = async () => {
-      const data = await getCurrentWeather(
-        selectedLocation.lat,
-        selectedLocation.lon,
-      )
-      setWeatherData(data)
-    }
-
-    fetchWeather()
-  }, [selectedLocation])
+  const { data: weatherData, isLoading, error } =
+    useFetch<WeatherData>(weatherUrl)
 
   const handleSearch = async (query: string) => {
     if (!query.trim()) return
@@ -61,7 +55,17 @@ export const WeatherDashboard = () => {
         </div>
       </header>
 
-      {!weatherData ? (
+      {isLoading ? (
+        <div className="dashboard-status-box">
+          <Loader2 className="dashboard-spinner" size={40} />
+          <p>Loading weather data...</p>
+        </div>
+      ) : error ? (
+        <div className="dashboard-status-box error">
+          <AlertCircle size={40} />
+          <p>{error}</p>
+        </div>
+      ) : !weatherData ? (
         <EmptyState />
       ) : (
         <section className="weather-grid">
