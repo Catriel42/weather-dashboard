@@ -7,7 +7,6 @@ import { LocationCard } from '../LocationCard'
 import { SunTimesCard } from '../SunTimesCard'
 import { WeatherDetails } from '../WeatherDetails'
 import { SearchBar } from '../SearchBar'
-import { ThemeToggle } from '../ThemeToggle'
 import { ResultCard } from '../ResultCard'
 import { EmptyState } from '../EmptyState'
 import './WeatherDashboard.css'
@@ -60,7 +59,6 @@ export const WeatherDashboard = () => {
             </div>
           )}
         </div>
-        <ThemeToggle />
       </header>
 
       {!weatherData ? (
