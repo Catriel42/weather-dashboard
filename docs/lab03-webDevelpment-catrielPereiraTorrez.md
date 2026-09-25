@@ -468,17 +468,30 @@ export class WeatherFrontendStack extends cdk.Stack {
       autoDeleteObjects: true,
     })
 
-    const distribution = new cloudfront.Distribution(this, 'WeatherAppDistribution', {
-      defaultBehavior: {
-        origin: new origins.S3Origin(websiteBucket),
-        viewerProtocolPolicy: cloudfront.ViewerProtocolPolicy.REDIRECT_TO_HTTPS,
+    const distribution = new cloudfront.Distribution(
+      this,
+      'WeatherAppDistribution',
+      {
+        defaultBehavior: {
+          origin: new origins.S3Origin(websiteBucket),
+          viewerProtocolPolicy:
+            cloudfront.ViewerProtocolPolicy.REDIRECT_TO_HTTPS,
+        },
+        defaultRootObject: 'index.html',
+        errorResponses: [
+          {
+            httpStatus: 404,
+            responsePagePath: '/index.html',
+            responseHttpStatus: 200,
+          },
+          {
+            httpStatus: 403,
+            responsePagePath: '/index.html',
+            responseHttpStatus: 200,
+          },
+        ],
       },
-      defaultRootObject: 'index.html',
-      errorResponses: [
-        { httpStatus: 404, responsePagePath: '/index.html', responseHttpStatus: 200 },
-        { httpStatus: 403, responsePagePath: '/index.html', responseHttpStatus: 200 }
-      ],
-    })
+    )
 
     new s3deploy.BucketDeployment(this, 'DeployWeatherApp', {
       sources: [s3deploy.Source.asset('../dist')],

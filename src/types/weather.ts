@@ -105,4 +105,3 @@ export interface ForecastResponse {
     sunset: number
   }
 }
-

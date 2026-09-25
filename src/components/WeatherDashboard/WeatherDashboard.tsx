@@ -21,8 +21,11 @@ export const WeatherDashboard = () => {
     ? getWeatherUrl(selectedLocation.lat, selectedLocation.lon)
     : null
 
-  const { data: weatherData, isLoading, error } =
-    useFetch<WeatherData>(weatherUrl)
+  const {
+    data: weatherData,
+    isLoading,
+    error,
+  } = useFetch<WeatherData>(weatherUrl)
 
   const handleSearch = async (query: string) => {
     if (!query.trim()) return

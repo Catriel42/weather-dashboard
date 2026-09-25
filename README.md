@@ -6,7 +6,6 @@ Interactive web application to check real-time weather conditions for any city w
 
 <img width="1801" height="898" alt="image" src="https://github.com/user-attachments/assets/d3dffd1d-b589-4c90-ae84-6229a95c7bf2" />
 
-
 - **Live Demo:** [https://dnr3v5hngcmwc.cloudfront.net](https://dnr3v5hngcmwc.cloudfront.net)
 - **Repository:** [https://github.com/Catriel42/weather-dashboard](https://github.com/Catriel42/weather-dashboard)
 
@@ -74,15 +73,15 @@ Interactive web application to check real-time weather conditions for any city w
 
 In the project root, you can run:
 
-| Command | Description |
-| --- | --- |
-| `npm run dev` | Starts the local Vite development server. |
-| `npm run build` | Type-checks with TypeScript and generates static assets in `dist/`. |
-| `npm run preview` | Locally previews the generated production build. |
-| `npm run lint` | Analyzes code with ESLint to detect syntax and rule errors. |
-| `npm run lint:fix` | Automatically fixes fixable ESLint errors. |
-| `npm run format` | Formats all source files using Prettier. |
-| `npm run format:check` | Checks if files conform to Prettier rules without modifying them. |
+| Command                | Description                                                         |
+| ---------------------- | ------------------------------------------------------------------- |
+| `npm run dev`          | Starts the local Vite development server.                           |
+| `npm run build`        | Type-checks with TypeScript and generates static assets in `dist/`. |
+| `npm run preview`      | Locally previews the generated production build.                    |
+| `npm run lint`         | Analyzes code with ESLint to detect syntax and rule errors.         |
+| `npm run lint:fix`     | Automatically fixes fixable ESLint errors.                          |
+| `npm run format`       | Formats all source files using Prettier.                            |
+| `npm run format:check` | Checks if files conform to Prettier rules without modifying them.   |
 
 ---
 
@@ -120,7 +119,7 @@ The project infrastructure is defined as code in the `infra/` directory. The dep
 
 4. **Synthesize and deploy the stack:**
 
-   *(If this is your first time using CDK in your AWS account/region, run `npx cdk bootstrap` first).*
+   _(If this is your first time using CDK in your AWS account/region, run `npx cdk bootstrap` first)._
 
    ```bash
    npx cdk deploy

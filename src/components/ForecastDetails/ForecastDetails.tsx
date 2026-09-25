@@ -67,9 +67,7 @@ export const ForecastDetails = () => {
           <CloudSun size={32} className="forecast-header-icon" />
           <div>
             <h1 className="forecast-city-title">{city}</h1>
-            <p className="forecast-subtitle">
-              Five-Days Pronostic
-            </p>
+            <p className="forecast-subtitle">Five-Days Pronostic</p>
           </div>
         </div>
       </header>

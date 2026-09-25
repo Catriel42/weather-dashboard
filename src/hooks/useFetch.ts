@@ -1,6 +1,5 @@
 import { useState, useEffect } from 'react'
 
-
 export interface UseFetchResult<T> {
   data: T | null
   isLoading: boolean
@@ -25,7 +24,9 @@ export const useFetch = <T>(url: string | null): UseFetchResult<T> => {
         const response = await fetch(url, { signal: controller.signal })
 
         if (!response.ok) {
-          throw new Error(`Error ${response.status}: ${response.statusText || 'Fetch failed'}`)
+          throw new Error(
+            `Error ${response.status}: ${response.statusText || 'Fetch failed'}`,
+          )
         }
 
         const json: T = await response.json()

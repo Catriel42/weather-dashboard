@@ -180,7 +180,7 @@ Para solucionar esto, implementé la API de Contexto de React (`createContext` y
 
 Separé la lógica en archivos específicos dentro de `src/context/`:
 
-``` bash
+```bash
 src/context/
 ├── ThemeContext.ts    # Definición del contexto, tipos y custom hook useTheme
 ├── ThemeProvider.tsx  # Componente proveedor del estado
@@ -262,7 +262,7 @@ Centralicé la lógica de fetching en `src/hooks/useFetch.ts`:
 
 2. Utilicé la API nativa de JavaScript `AbortController`. Al pasar `controller.signal` a `fetch()`, el navegador queda vinculado a la señal de cancelación.
 
-3. En la función de limpieza (`return () => controller.abort()`), si el usuario cambia de página o selecciona otra ciudad antes de que termine la petición actual, la conexión HTTP se cancela inmediatamente a nivel de red, evitando *memory leaks* y sobreescrituras desfasadas.
+3. En la función de limpieza (`return () => controller.abort()`), si el usuario cambia de página o selecciona otra ciudad antes de que termine la petición actual, la conexión HTTP se cancela inmediatamente a nivel de red, evitando _memory leaks_ y sobreescrituras desfasadas.
 
 En el bloque `catch`, filtro las excepciones de tipo `AbortError` para que las cancelaciones voluntarias no se interpreten como errores para el usuario.
 
