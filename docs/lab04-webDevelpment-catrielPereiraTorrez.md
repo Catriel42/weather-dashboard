@@ -342,3 +342,11 @@ Vite genera los artefactos demostrando que la ruta `/about` fue aislada exitosam
 
 - **`index-*.js`**: Redujo su tamaño ya que no contiene el código de `About`.
 - **`About-*.js` (4.67 kB)** y **`About-*.css` (1.87 kB)**: Ahora son un chunk independiente que el navegador descarga bajo demanda únicamente cuando el usuario navega a la URL `/about`.
+
+## 5. Conclusiones
+
+Puedes usar la web final desplegada en AWS aquí:  
+<https://dnr3v5hngcmwc.cloudfront.net>
+
+Como no tenemos repositorios para la materia, estoy subiendo todo esto a mi github personal:  
+<https://github.com/Catriel42/weather-dashboard>
