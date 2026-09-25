@@ -1,7 +1,7 @@
 #!/usr/bin/env node
-import 'source-map-support/register';
-import * as cdk from 'aws-cdk-lib';
-import { WeatherFrontendStack } from '../lib/infra-stack';
+import 'source-map-support/register'
+import * as cdk from 'aws-cdk-lib'
+import { WeatherFrontendStack } from '../lib/infra-stack'
 
-const app = new cdk.App();
-new WeatherFrontendStack(app, 'WeatherFrontendStack', {});
+const app = new cdk.App()
+new WeatherFrontendStack(app, 'WeatherFrontendStack', {})
